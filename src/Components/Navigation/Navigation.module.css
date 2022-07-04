@@ -1,0 +1,25 @@
+header {
+    padding: 16px;
+    background-color: #f1f1f1;
+}
+
+.navigation ul {
+    display: flex;
+}
+
+.navigation li {
+    list-style: none;
+    margin-left: 16px;
+}
+
+.navigation a {
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all .3s ease-in;
+}
+
+.activeNavigation {
+    color: #fff;
+    background: #7600dc;
+}
