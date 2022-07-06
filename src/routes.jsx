@@ -1,5 +1,5 @@
 import HomePage from "./Pages/HomePage";
-import Cart from "./Pages/CartPage";
+import Cart from "./Pages/Cart/CartPage";
 
 const routes = [
   { path: "/", element: <HomePage /> },

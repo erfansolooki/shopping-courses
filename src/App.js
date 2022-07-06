@@ -2,16 +2,19 @@ import "./App.css";
 import Layout from "./Layout/Layout";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import routes from "./routes";
+import CartProvider from "./Context/CartProvider";
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <Routes>
-          {routes.map((route) => (
-            <Route key={route.path} {...route} />
-          ))}
-        </Routes>
+        <CartProvider>
+          <Routes>
+            {routes.map((route) => (
+              <Route key={route.path} {...route} />
+            ))}
+          </Routes>
+        </CartProvider>
       </Layout>
     </BrowserRouter>
   );
