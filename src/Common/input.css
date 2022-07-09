@@ -1,0 +1,47 @@
+input:focus {
+    border: 1px solid #6d28d9;
+    outline: none;
+}
+
+label {
+    display: flex;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+input {
+    width: 400px;
+    padding: 6px 12px;
+    display: block;
+    background: #fff;
+    color: #444;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-control {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 5px 15px;
+}
+
+.error {
+    color: red;
+    margin-top: 6px;
+}
+
+.form-control.radio {
+    display: flex;
+}
+
+.form-control .radio-button {
+    display: flex;
+    align-items: center;
+}
+
+.form-control .radio-button input {
+    width: 16px;
+    margin: 0 8px;
+}

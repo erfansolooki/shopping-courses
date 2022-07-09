@@ -52,3 +52,13 @@
   background-color: #6d28d9;
   color: #fff;
 }
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #847c7c;
+}
+
+a {
+  text-decoration: none;
+}
