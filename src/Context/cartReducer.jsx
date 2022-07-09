@@ -13,7 +13,38 @@ const cartReducer = (state, action) => {
         selectedItem.quantity++;
         cloneProduct[findIndex] = selectedItem;
       }
-      return { ...state, cart: cloneProduct };
+      return {
+        ...state,
+        cart: cloneProduct,
+        total: state.total + action.payload.offPrice,
+      };
+    }
+    case "DECREMENT": {
+      const cloneProduct = [...state.cart];
+      const findIndex = cloneProduct.findIndex(
+        (product) => product.id === action.payload.id
+      );
+
+      const selectedItem = { ...cloneProduct[findIndex] };
+
+      if (selectedItem.quantity === 1) {
+        const filterProducts = cloneProduct.filter(
+          (item) => item.id !== action.payload.id
+        );
+        return {
+          ...state,
+          cart: filterProducts,
+          total: state.total - action.payload.offPrice,
+        };
+      } else {
+        selectedItem.quantity--;
+        cloneProduct[findIndex] = selectedItem;
+        return {
+          ...state,
+          cart: cloneProduct,
+          total: state.total - action.payload.offPrice,
+        };
+      }
     }
     default:
       return state;

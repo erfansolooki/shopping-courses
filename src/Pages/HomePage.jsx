@@ -1,8 +1,12 @@
 import { products } from "../back-end-final-project/data";
-import { useProductsDispatcher } from "../Context/CartProvider";
+import { useProducts, useProductsDispatcher } from "../Context/CartProvider";
+import { checkInCart } from "../Utils/checkInCart";
+import { toast } from "react-toastify";
 const HomePage = () => {
+  const { cart } = useProducts();
   const dispatch = useProductsDispatcher();
   const addProductHandler = (product) => {
+    toast.success(`${product.name} added to Cart`);
     dispatch({ type: "ADD_TO_CART", payload: product });
   };
 
@@ -21,7 +25,7 @@ const HomePage = () => {
                 className="btn primary"
                 onClick={() => addProductHandler(product)}
               >
-                Add to cart
+                {checkInCart(cart, product) ? "In Cart" : "Add to Cart"}
               </button>
             </div>
           </section>

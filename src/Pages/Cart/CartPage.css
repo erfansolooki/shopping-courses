@@ -1,14 +1,19 @@
 .cartItemList {
     display: flex;
+    flex-direction: column;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
+    flex: 1;
+    padding: 1rem;
 }
 
 .cartItem {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
 }
 
 .cartItem .itemImage {
@@ -23,7 +28,48 @@
 
 .cartSummary {
     display: flex;
+    flex-direction: column;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
+    width: 30%;
+    margin-left: 3rem;
+    padding: 1rem;
+}
+
+.cartCenter {
+    display: flex;
+    max-width: 1170px;
+    width: 90vw;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.summaryItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.buttonGroup button {
+    outline: none;
+    color: #6d28d9;
+    border: 1px solid #6d28d9;
+    padding: 8px;
+    background-color: #fff;
+}
+
+.buttonGroup button:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.buttonGroup button:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+
+.buttonGroup button:nth-child(2) {
+    border-left: 0;
+    border-right: 0;
 }
