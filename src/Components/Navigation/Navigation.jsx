@@ -12,6 +12,7 @@ const Navigation = () => {
   return (
     <header>
       <nav className={styles.navigation}>
+        Logo
         <ul>
           {/* {items.map((item) => {
             return (
@@ -49,6 +50,17 @@ const Navigation = () => {
             >
               Cart
               <span>{cart.length}</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/Login"
+              style={({ isActive }) => ({
+                color: isActive ? "#fff" : null,
+                background: isActive ? "#7600dc" : null,
+              })}
+            >
+              Login/SignUp
             </NavLink>
           </li>
         </ul>

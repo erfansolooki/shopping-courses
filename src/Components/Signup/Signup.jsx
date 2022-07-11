@@ -2,7 +2,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Input from "../../Common/Input";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signUpService } from "../../Services/signupServices";
+import { useState } from "react";
 
 const initialValues = {
   name: "",
@@ -10,10 +12,6 @@ const initialValues = {
   phoneNumber: "",
   password: "",
   passwordConfirmation: "",
-};
-
-const onSubmit = (values) => {
-  console.log(values);
 };
 
 const validationSchema = Yup.object({
@@ -33,6 +31,27 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = () => {
+  const [error, setError] = useState("");
+  const history = useNavigate();
+  const onSubmit = async (values) => {
+    const { name, email, password, phoneNumber } = values;
+    const userData = {
+      name,
+      email,
+      password,
+      phoneNumber,
+    };
+    try {
+      const { data } = await signUpService(userData);
+      console.log(data);
+      history("/");
+      setError(null);
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      }
+    }
+  };
   //   const [formValues, setFormValues] = useState(null);
   const formik = useFormik({
     initialValues,
@@ -73,6 +92,7 @@ const SignUpForm = () => {
           >
             SignUp
           </button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
       </div>
       <div style={{ textAlign: "center" }}>
