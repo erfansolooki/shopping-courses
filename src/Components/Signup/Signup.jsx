@@ -2,9 +2,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Input from "../../Common/Input";
 import "./Signup.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signUpService } from "../../Services/signupServices";
 import { useState } from "react";
+import { useAuthActions } from "../../Context/AuthProvider";
+import { useQuery } from "../../Hooks/useQuery";
 
 const initialValues = {
   name: "",
@@ -32,7 +34,11 @@ const validationSchema = Yup.object({
 
 const SignUpForm = () => {
   const [error, setError] = useState("");
+  const setAuth = useAuthActions();
+  const query = useQuery();
+  const redirect = query.get("redirect") || "/";
   const history = useNavigate();
+
   const onSubmit = async (values) => {
     const { name, email, password, phoneNumber } = values;
     const userData = {
@@ -41,10 +47,13 @@ const SignUpForm = () => {
       password,
       phoneNumber,
     };
+
     try {
       const { data } = await signUpService(userData);
       console.log(data);
-      history("/");
+      history(redirect);
+      setAuth(data);
+      localStorage.setItem("authState", JSON.stringify(data));
       setError(null);
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -97,7 +106,7 @@ const SignUpForm = () => {
       </div>
       <div style={{ textAlign: "center" }}>
         <p>Already have an account ?</p>
-        <Link to="/Login">Login</Link>
+        <Link to={`/Login?redirect=${redirect}`}>Login</Link>
       </div>
     </>
   );

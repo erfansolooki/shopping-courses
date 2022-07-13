@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import Input from "../../Common/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { loginServices } from "../../Services/loginService";
+import { useAuthActions } from "../../Context/AuthProvider";
+import { useQuery } from "../../Hooks/useQuery";
 
 const initialValues = {
   email: "",
@@ -19,12 +21,17 @@ const validationSchema = Yup.object({
 
 const LoginForm = () => {
   const [error, setError] = useState("");
+  const query = useQuery();
+  const redirect = query.get("redirect") || "/";
   const history = useNavigate();
+  const setAuth = useAuthActions();
   const onSubmit = async (values) => {
     try {
       const { data } = await loginServices(values);
       console.log(data);
-      history("/");
+      history(redirect);
+      setAuth(data);
+      localStorage.setItem("authState", JSON.stringify(data));
       setError(null);
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -64,7 +71,7 @@ const LoginForm = () => {
       </div>
       <div style={{ textAlign: "center" }}>
         <p>Don't have an account ?</p>
-        <Link to="/SignUp">SignUp</Link>
+        <Link to={`/SignUp?redirect=${redirect}`}>SignUp</Link>
       </div>
     </>
   );

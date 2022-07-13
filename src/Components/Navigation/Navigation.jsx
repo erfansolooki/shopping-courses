@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../Context/AuthProvider";
 import { useProducts } from "../../Context/CartProvider";
 import styles from "./Navigation.module.css";
 
@@ -9,6 +10,7 @@ import styles from "./Navigation.module.css";
 
 const Navigation = () => {
   const { cart } = useProducts();
+  const userData = useAuth();
   return (
     <header>
       <nav className={styles.navigation}>
@@ -54,13 +56,13 @@ const Navigation = () => {
           </li>
           <li>
             <NavLink
-              to="/Login"
+              to={userData ? "" : "/Login"}
               style={({ isActive }) => ({
                 color: isActive ? "#fff" : null,
                 background: isActive ? "#7600dc" : null,
               })}
             >
-              Login/SignUp
+              {userData ? userData.name : "login/signUp"}
             </NavLink>
           </li>
         </ul>
